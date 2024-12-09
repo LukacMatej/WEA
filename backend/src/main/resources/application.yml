@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: backend
+  liquibase:
+    change-log: db/changelog/db.changelog-master.xml
+  datasource:
+    driverClassName: org.postgresql.Driver
+  jackson:
+    default-property-inclusion: non_null
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc.lob.non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        use_nationalized_character_data: true
+        temp:
+          use_jdbc_metadata_defaults: false
+        show_sql: false
+        default_schema: public
+auth:
+  cors:
+    frontendUrl: "localhost:4200"
+  jwt:
+    access:
+      secret: "e3a62749cb3f1923567611b91b73f7e92996ff82bdabb05150d015f894f356c3"
+      duration: 1800000 # 30 minutes
+      sameSite: "Lax"
+      secure: false
+    refresh:
+      secret: "1e631403b1c7cf24924927c2f2f7aa135ac984513cfd5dd2d5c88676e9a103dc"
+      duration: 2592000000 # 30 days
+      sameSite: "Lax"
+      secure: false
+springdoc:
+  api-docs:
+    path: "api/v1/docs/api"
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: "/api/v1/docs/index.html" # available at /api/v1/docs/swagger-ui/index.html
+    config-url: "/api/v1/docs/api/swagger-config"
+    url: "/api/v1/docs/api"
+synchronization:
+  book:
+    import:
+      chunkSize: 20
